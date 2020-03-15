@@ -1,0 +1,27 @@
+{
+  "name": "simple-server",
+  "version": "1.0.0",
+  "main": "src/server.js",
+  "description": "搭建后台restful api",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "nodemon"
+  },
+  "dependencies": {
+    "bcrypt": "^4.0.1",
+    "express": "^4.17.1",
+    "mongoose": "^5.9.4",
+    "nodemon": "^2.0.2"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "node_modules"
+    ],
+    "watch": "src/",
+    "ext": "js, json",
+    "delay": "2500",
+    "restartable": "rs",
+    "verbos": "true"
+  }
+}
