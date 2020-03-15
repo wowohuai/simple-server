@@ -1,10 +1,12 @@
 const router = require('express').Router()
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 const User = require('../models/user')
+const { secretKey } = require('../config/base')
+const auth = require('../middleware/auth')
 
-router.get('/profile', async (req, res) => {
-  const list = await User.find()
-  res.send(list)
+router.get('/profile', auth, async (req, res) => {
+  res.send(req.user)
 })
 
 
@@ -32,9 +34,14 @@ router.post('/login', async (req, res) => {
       message: '密码错误'
     })
   }
+  const token = jwt.sign({
+    id: user._id,
+    // 时效设为10分钟
+    iat: Math.floor(Date.now / 1000) - 10
+  }, secretKey)
   res.status(200).send({
-    user,
-    token: '...'
+    message: '登录成功',
+    token
   })
 })
 
